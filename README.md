@@ -71,6 +71,6 @@ DSM 通过内核计数 `/sys/block/sda/device/syno_idle_time` 累计硬盘的"�
 
 ## 效果
 
-<img width="600" height="189" alt="1" src="https://github.com/user-attachments/assets/7ef5e5d4-ac20-49f6-8ff3-3b880ee869bc" />
+<img width="600" height="189" alt="0" src="https://github.com/user-attachments/assets/cc8adc4d-5801-4340-96dd-2f185b7aa6e9" />
 
 访问网页面板或远程连接时出现`Internal disks woke up from hibernation.`即脚本生效
