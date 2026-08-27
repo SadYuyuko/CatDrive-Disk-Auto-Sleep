@@ -60,13 +60,13 @@ curl -sSL https://raw.githubusercontent.com/SadYuyuko/CatDrive-Disk-Auto-Sleep/m
 
 ### DSM 休眠判定机制
 
-DSM 通过内核计数 `/sys/block/sda/device/syno_idle_time` 累计硬盘的"纯空闲秒数"，需要**连续**达到 `standbytimer`（休眠时间阈值）才会发出 ATA 待机指令。任何一次磁盘读写都会把该计数清零，因此休眠能否触发取决所设置的休眠时间内是否有连接或进程读写。
+DSM 通过内核计数 `/sys/block/sda/device/syno_idle_time` 累计硬盘的空闲时间计数，需要**连续**达到 `standbytimer`（休眠时间阈值）才会发出 ATA 待机指令。任何一次磁盘读写都会把该计数清零，因此休眠能否触发取决所设置的休眠时间内是否有连接或进程读写。
 
 ## 注意
 
 - 硬盘休眠依赖网卡低功耗监听唤醒，大小猫盘在硬盘休眠上逻辑一致，**关闭 WOL 会导致休眠失效**，请保持 WOL 开启（脚本默认）
-- 休眠计时不可超过 20 分钟，DSM 自身的磁盘空间检查以约 20 分钟为周期，与空闲计时器冲突导致无限打断休眠计划，建议设 15 分钟
-- 不要安装 qBittorrent 等常驻进程插件，会导致猫盘内存紧张触发 kswapd 持续把内存换页写 swap，等于每几十秒触盘一次导致无法休眠
+- 休眠计时不可超过 20 分钟，系统磁盘空间检查约 20 分钟为周期，与空闲计时器冲突导致无限打断休眠计划
+- 不要安装 qBittorrent 等常驻进程插件，会导致猫盘内存紧张触发 kswapd 持续把内存换页写 swap，等于每几十秒触盘一次打断休眠
 - DSM 通常周四凌晨会运行约 1 小时的每周例行维护批次（`syno_disk_db_update`、`synolegalnotifier` 等），期间无法休眠属正常现象
 
 ## 效果
